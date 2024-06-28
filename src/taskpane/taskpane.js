@@ -1,4 +1,4 @@
-/*
+  /*
  * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
  * See LICENSE in the project root for license information.
  */
@@ -11,6 +11,7 @@ Office.onReady((info) => {
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("run").onclick = run;
     document.getElementById("open-data-form").onclick = openDataForm;
+    document.getElementById("openFormButton").onclick = openDataForm;
   }
 });
 
@@ -36,6 +37,19 @@ export async function run() {
   }
 }
 
+// function openDataForm() {
+//   window.open('taskpane/popup-form.html', '_blank', 'width=800,height=600');
+// }
 function openDataForm() {
-  window.open('taskpane/popup-form.html', '_blank', 'width=800,height=600');
+  Office.context.ui.displayDialogAsync('https://localhost:3000/popup-form.html',
+    { height: 50, width: 50 },
+    function (asyncResult) {
+      var dialog = asyncResult.value;
+      dialog.addEventHandler(Office.EventType.DialogMessageReceived, messageHandler);
+    });
+}
+
+function messageHandler(arg) {
+  console.log(arg.message);
+  // You can handle the message from the dialog box here
 }
