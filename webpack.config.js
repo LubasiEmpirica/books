@@ -64,6 +64,11 @@ module.exports = async (env, options) => {
         template: "./src/taskpane/popup-form.html",
         chunks: [],
       }),
+      new HtmlWebpackPlugin({
+        filename: "popup-form-fcf.html",
+        template: "./src/taskpane/popup-form-fcf.html",
+        chunks: [],
+      }),
       new CopyWebpackPlugin({
         patterns: [
           {

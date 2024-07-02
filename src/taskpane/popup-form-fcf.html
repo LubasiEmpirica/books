@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCF Variables</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="fcfstyles.css">
+</head>
+
+<body>
+    <h1>FCF Variables</h1>
+    <div x-data="{
+        columns: ['Premiums', 'Claims', 'Admin', 'Acq'],
+        formData: {},
+        loadFormData() {
+            try {
+                const storedData = localStorage.getItem('fcfFormData');
+                if (storedData) {
+                    this.formData = JSON.parse(storedData);
+                }
+            } catch (e) {
+                console.error('Error loading data from localStorage:', e);
+            }
+        },
+        saveFormData() {
+            try {
+                localStorage.setItem('fcfFormData', JSON.stringify(this.formData));
+                alert('Data saved successfully!');
+            } catch (e) {
+                alert('Error saving data to localStorage: ' + e.message);
+            }
+        },
+        addRow() {
+            this.formData.Premiums.push(this.newValues.Premiums);
+            this.formData.Claims.push(this.newValues.Claims);
+            this.formData.Admin.push(this.newValues.Admin);
+            this.formData.Acq.push(this.newValues.Acq);
+            this.newValues.Premiums = '';
+            this.newValues.Claims = '';
+            this.newValues.Admin = '';
+            this.newValues.Acq = '';
+        },
+        removeRow(index) {
+            this.formData.Premiums.splice(index, 1);
+            this.formData.Claims.splice(index, 1);
+            this.formData.Admin.splice(index, 1);
+            this.formData.Acq.splice(index, 1);
+        },
+        submitData() {
+            fetch('http://localhost:5000/submit-fcf', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.formData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert('Data submitted successfully');
+                console.log(data); // Optional: Log the response data
+            })
+            .catch(error => {
+                alert('Error submitting data: ' + error.message);
+                console.error('Error:', error);
+            });
+        }
+    }" x-init="loadFormData()">
+        <table>
+            <thead>
+                <tr>
+                    <th>Premiums</th>
+                    <th>Claims</th>
+                    <th>Admin</th>
+                    <th>Acq</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template x-for="(value, index) in formData.Premiums" :key="index">
+                    <tr>
+                        <td><input x-model="formData.Premiums[index]" type="text"></td>
+                        <td><input x-model="formData.Claims[index]" type="text"></td>
+                        <td><input x-model="formData.Admin[index]" type="text"></td>
+                        <td><input x-model="formData.Acq[index]" type="text"></td>
+                        <td><button type="button" @click="removeRow(index)">Remove</button></td>
+                    </tr>
+                </template>
+                <tr>
+                    <td><input x-model="newValues.Premiums" type="text" placeholder="Enter Premiums"></td>
+                    <td><input x-model="newValues.Claims" type="text" placeholder="Enter Claims"></td>
+                    <td><input x-model="newValues.Admin" type="text" placeholder="Enter Admin"></td>
+                    <td><input x-model="newValues.Acq" type="text" placeholder="Enter Acq"></td>
+                    <td><button type="button" @click="addRow()">Add Row</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="mt-4">
+            <button @click="saveFormData()" class="btn btn-primary">Save Data</button>
+            <button @click="submitData()" class="btn btn-primary">Submit Data</button>
+        </div>
+    </div>
+</body>
+
+</html>
