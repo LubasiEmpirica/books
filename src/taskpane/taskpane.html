@@ -1,33 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contoso Task Pane Add-in</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&family=Noto+Sans+JP:wght@100..900&display=swap"
+        rel="stylesheet">
 
     <!-- Office JavaScript API -->
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
 
     <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui#/. -->
-    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.0/css/fabric.min.css"/>
+    <link rel="stylesheet"
+        href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.0/css/fabric.min.css" />
 
     <!-- Custom styles -->
     <link href="taskpane.css" rel="stylesheet" type="text/css">
 </head>
+
 <body class="ms-font-m ms-welcome ms-Fabric">
     <main id="app-body" class="ms-welcome__main">
         <div class="ms-textAlignCenter">
+            <h1 class="ms-font-su">PAM1000 Assumptions Manager</h1>
             <img width="90" height="90" src="../../assets/IMG_5430.jpg" alt="Contoso" title="Contoso">
             <h1 class="ms-font-su">Welcome</h1>
         </div>
 
         <!-- Button to open the form -->
         <div class="ms-textAlignCenter">
-            <button id="openFormButton">Open Form</button>
+            <button id="openFormButton">Input</button>
         </div>
     </main>
 
     <script src="taskpane.js"></script>
 </body>
+
 </html>

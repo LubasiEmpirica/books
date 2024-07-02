@@ -2,7 +2,8 @@
 body, html {
     margin: 0;
     padding: 0;
-    background-color: #76c158; /* Background color */
+    background-color: white; /* Background color */
+    
 }
 
 /* Center content */
@@ -15,11 +16,12 @@ body, html {
     width: 320px;
     height: 110px;
     margin-bottom: 10px; /* Adjust spacing below the image */
-}
+   }
 
 .ms-welcome__main h1 {
-    font-size: 40px; /* Adjusted font size for the Welcome heading */
-    color: white;
+    font-size: 25px; /* Adjusted font size for the Welcome heading */
+    color: black;
+    /* font-weight: bold; */
 }
 
 .ms-font-su {
