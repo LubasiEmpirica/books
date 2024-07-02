@@ -11,18 +11,22 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    justify-content: space-between; /* Add this line */
 }
 
 .field label {
     min-width: 200px; /* Adjust label width as needed */
     margin-right: 10px;
     font-weight: bold;
+    text-align: left; /* Ensure labels are aligned to the left */
 }
 
 .field input[type="text"] {
     flex: 1;
     padding: 6px 10px;
     font-size: inherit;
+    width: 100%; /* Ensure all input boxes have the same length */
+    max-width: 300px; /* Optional: set a max-width for input boxes */
 }
 
 .btn {
