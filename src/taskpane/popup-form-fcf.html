@@ -12,35 +12,35 @@
 <body>
     <h1>FCF Variables</h1>
     <div x-data="{
-        columns: ['Premiums', 'Claims', 'Admin', 'Acq'],
-        formData: {},
-        loadFormData() {
-            try {
-                const storedData = localStorage.getItem('fcfFormData');
-                if (storedData) {
-                    this.formData = JSON.parse(storedData);
-                }
-            } catch (e) {
-                console.error('Error loading data from localStorage:', e);
-            }
+        formData: {
+            'Premiums': [],
+            'Claims': [],
+            'Admin': [],
+            'Acq': []
         },
-        saveFormData() {
-            try {
-                localStorage.setItem('fcfFormData', JSON.stringify(this.formData));
-                alert('Data saved successfully!');
-            } catch (e) {
-                alert('Error saving data to localStorage: ' + e.message);
-            }
+        loadFormData() {
+            fetch('http://localhost:5000/get-fcf-data')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch data');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    this.formData.Premiums = data.Premiums;
+                    this.formData.Claims = data.Claims;
+                    this.formData.Admin = data.Admin;
+                    this.formData.Acq = data.Acq;
+                })
+                .catch(error => {
+                    console.error('Error loading data:', error);
+                });
         },
         addRow() {
-            this.formData.Premiums.push(this.newValues.Premiums);
-            this.formData.Claims.push(this.newValues.Claims);
-            this.formData.Admin.push(this.newValues.Admin);
-            this.formData.Acq.push(this.newValues.Acq);
-            this.newValues.Premiums = '';
-            this.newValues.Claims = '';
-            this.newValues.Admin = '';
-            this.newValues.Acq = '';
+            this.formData.Premiums.push('');
+            this.formData.Claims.push('');
+            this.formData.Admin.push('');
+            this.formData.Acq.push('');
         },
         removeRow(index) {
             this.formData.Premiums.splice(index, 1);
@@ -49,7 +49,7 @@
             this.formData.Acq.splice(index, 1);
         },
         submitData() {
-            fetch('http://localhost:5000/submit-fcf', {
+            fetch('http://localhost:5000/update-fcf-data', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -63,11 +63,11 @@
                 return response.json();
             })
             .then(data => {
-                alert('Data submitted successfully');
+                alert('Data updated successfully');
                 console.log(data); // Optional: Log the response data
             })
             .catch(error => {
-                alert('Error submitting data: ' + error.message);
+                alert('Error updating data: ' + error.message);
                 console.error('Error:', error);
             });
         }
@@ -93,17 +93,16 @@
                     </tr>
                 </template>
                 <tr>
-                    <td><input x-model="newValues.Premiums" type="text" placeholder="Enter Premiums"></td>
-                    <td><input x-model="newValues.Claims" type="text" placeholder="Enter Claims"></td>
-                    <td><input x-model="newValues.Admin" type="text" placeholder="Enter Admin"></td>
-                    <td><input x-model="newValues.Acq" type="text" placeholder="Enter Acq"></td>
+                    <td><input type="text" x-model="newValues.Premiums" placeholder="Enter Premiums"></td>
+                    <td><input type="text" x-model="newValues.Claims" placeholder="Enter Claims"></td>
+                    <td><input type="text" x-model="newValues.Admin" placeholder="Enter Admin"></td>
+                    <td><input type="text" x-model="newValues.Acq" placeholder="Enter Acq"></td>
                     <td><button type="button" @click="addRow()">Add Row</button></td>
                 </tr>
             </tbody>
         </table>
         <div class="mt-4">
-            <button @click="saveFormData()" class="btn btn-primary">Save Data</button>
-            <button @click="submitData()" class="btn btn-primary">Submit Data</button>
+            <button @click="submitData()" class="btn btn-primary">Update Data</button>
         </div>
     </div>
 </body>
