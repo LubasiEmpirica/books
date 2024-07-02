@@ -3,6 +3,11 @@ body {
     font-size: 14px; /* Adjust font size as needed */
 }
 
+h2 {
+    text-align: left;
+    color: #8c8130;
+}
+
 .form-container {
     margin-top: 20px;
 }

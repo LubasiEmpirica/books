@@ -19,6 +19,7 @@ body, html {
 
 .ms-welcome__main h1 {
     font-size: 40px; /* Adjusted font size for the Welcome heading */
+    color: white;
 }
 
 .ms-font-su {
