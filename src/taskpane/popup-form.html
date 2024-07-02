@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excel-like Table with Data Persistence</title>
-    <!-- Include JetBrains Mono font from Google Fonts CDN -->
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <title>Empirica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="styles.css"> <!-- Link to your separate CSS file -->
 </head>
+
 <body class="bg-gray-200 p-4">
     <div x-data="{ 
         columns: [
@@ -55,6 +60,7 @@
         }
     }" x-init="loadData()">
         <div class="form-container">
+            <h2>Assumption Manager</h2>
             <template x-for="(column, index) in columns" :key="index">
                 <div class="field">
                     <label x-text="column"></label>
@@ -69,4 +75,5 @@
         </div>
     </div>
 </body>
+
 </html>

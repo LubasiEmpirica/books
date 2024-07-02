@@ -42,15 +42,15 @@ body {
 }
 
 .btn:hover {
-    background-color: #2779bd;
+    background-color: #8c8130;
 }
 
 .btn-primary {
-    background-color: #38c172;
+    background-color: #a0972e;
 }
 
 .btn-primary:hover {
-    background-color: #2bb673;
+    background-color: #8c8130;
 }
 
 .btn-danger {

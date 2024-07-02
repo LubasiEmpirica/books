@@ -10,6 +10,14 @@
           "template"
         ]
       }
+    ],
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "flex"
+        ]
+      }
     ]
   }
 }
